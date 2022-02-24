@@ -166,3 +166,40 @@ RouterModule.forRoot([
       { path: 'products/:productId', component: ProductDetailsComponent },
 ```
 RouterModule spécifie les différents path pour les composants ProductListComponent et ProductDetailsComponent.
+
+```ts
+import { ActivatedRoute } from '@angular/router';
+```
+permet d'importer Angular router qui permet d'utiliser un service et fournit l'accès aux informations sur un itinéraire qui est associé à un composant.
+
+(fichier product-details.component.ts)
+```ts
+constructor(private route: ActivatedRoute) { }
+```
+Lorsqu'on instancie le composant product-details, on le construit avec ActivatedRoute qui contient des informations sur le route et sa configuration.
+(fichier product-details.component.ts)
+```ts
+product: Product | undefined;
+```
+permet de déclarer le produit.
+```ts
+const routeParams = this.route.snapshot.paramMap;
+  const productIdFromRoute = Number(routeParams.get('productId'));
+```
+ici, on paramètre le route avec le productId pour afficher les détails de chaque téléphone.
+
+```ts
+  this.product = products.find(product => product.id === productIdFromRoute);
+}
+```
+permet de chercher l'id du produit par le route
+
+```ts
+<div *ngIf="product">
+  <h3>{{ product.name }}</h3>
+  <h4>{{ product.price | currency }}</h4>
+  <p>{{ product.description }}</p>
+</div>
+```
+grâce au route , lorsque je clique le produit (téléphone), cela affiche ses caractéristiques par l'id grâce au route:
+son nom, son prix, sa description
