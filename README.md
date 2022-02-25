@@ -3,11 +3,11 @@
 <!-- [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-8rdrkj) -->
 
 ## Partie 1 Getting started (auteur:Pascal KHUU)
-
-app-product-list est le contenu où s'affichent les téléphones ainsi que leur description avec les boutons Share et Notify.
-Dans app, se trouve tous les composants du projet.
-Dans app.module.ts se trouve les dépendances du projet (modules du projet).
-product-alerts et product-list sont des composants.
+app-top-bar est le composant de l'application avec le titre My Store et le bouton Checkout.
+app-product-list est le composant où se trouve le contenu qui affiche les téléphones ainsi que leur description avec les boutons Share et Notify Me.
+Dans src>app se trouve tous les composants du projet.
+Dans le fichier app.module.ts se trouve les dépendances du projet (modules du projet).
+product-alerts et product-list sont par exemple des composants de l'application.
 
 ```html
 <div *ngFor="let product of products">
@@ -76,7 +76,7 @@ Le templateUrl est l'url (gestion de la structure du template)  avec comme url '
   <button type="button">Notify Me</button>
 </p> 
 ```
-Si le produit existe et le prix du produit est supérieur à 700, un bouton Notify apparaît sous le téléphone.
+Si le produit existe et le prix du produit est supérieur à 700, un bouton Notify Me apparaît sous le téléphone.
 
 ```
 @NgModule({
@@ -135,7 +135,7 @@ la classe ProductAlertsComponent importe des données du produit et exporte noti
 ```
 
 Avec la méthode share(), lorsque je clique le bouton share, cela affiche dans une fenêtre 'The product has been shared!'.
-Avec la méthode share(), lorsque je clique le bouton Notify me, cela affiche dans une fenêtre 'You will be notified when the product goes on sale'.
+Avec la méthode share(), lorsque je clique le bouton Notify Me, cela affiche dans une fenêtre 'You will be notified when the product goes on sale'.
 
 Dans le composant product-alerts-component qui est l'enfant du composant product-list-component
 ```html
@@ -151,7 +151,7 @@ lorsque je clique sur le bouton Notify me , un évènement est lancé (notify.em
   (notify)="onNotify()">
 </app-product-alerts> 
 ```
-app-product-alerts permet d'afficher dans le template html le contenu du message 'You will be notified when the product goes on sale' lorsque je clique sur le bouton Notify me.
+app-product-alerts permet d'afficher dans le template html le contenu du message 'You will be notified when the product goes on sale' lorsque je clique sur le bouton Notify Me.
 
 
 --------------------------------------------------------------------------------------------
