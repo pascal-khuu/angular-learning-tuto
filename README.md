@@ -2,7 +2,7 @@
 
 <!-- [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-8rdrkj) -->
 
-Partie 1 (auteur:Pascal KHUU)
+## Partie 1 (auteur:Pascal KHUU)
 
 app-product-list est le contenu où s'affichent les téléphones ainsi que leur description avec les boutons Share et Notify.
 Dans app, se trouve tous les composants du projet.
@@ -68,7 +68,7 @@ Le templateUrl est l'url (gestion de la structure du template)  avec comme url '
 
  <!-- <button type="button" (click)="share()">Share</button> --> permet de créer un bouton de clic associé à l'évènement share().
 
- Le composant ProductAlertComponent a come parent le composant ProductListComponent.
+ Le composant ProductAlertComponent a comme parent le composant ProductListComponent.
 ```html
   <p *ngIf="product && product.price > 700">
   <button type="button">Notify Me</button>
@@ -85,7 +85,7 @@ Si le produit existe et le prix du produit est supérieur à 700, un bouton Noti
     ProductAlertsComponent,
   ],
 ```
-  Dans l'annotation @NgModule, les différents composants sont déclarés
+  Dans l'annotation @NgModule, les différents composants sont déclarés.
 
 
  dans le fichier product-alert.component.ts
@@ -152,11 +152,11 @@ lorsque je clique sur le bouton Notify me , un évènement est lancé (notify.em
   (notify)="onNotify()">
 </app-product-alerts> 
 ```
-app-product-alerts permet d'afficher dans le template html le contenu du message 'You will be notified when the product goes on sale'.
+app-product-alerts permet d'afficher dans le template html le contenu du message 'You will be notified when the product goes on sale' lorsque je clique sur le bouton Notify me.
 
 
 --------------------------------------------------------------------------------------------
-Partie 2
+## Partie 2 Adding Navigation
 
 La commande 'ng generate component product-details' permet de créer un composant product-details avec les 4 fichiers product-details.component.html(structure du template), product-details.component.css(mise en forme), product-details.component.spec.ts(tests unitaires) et product-details.component.ts(logique métier).
 
@@ -165,7 +165,7 @@ RouterModule.forRoot([
       { path: '', component: ProductListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
 ```
-RouterModule spécifie les différents path pour les composants ProductListComponent et ProductDetailsComponent.
+RouterModule spécifie les différents paths pour les composants ProductListComponent et ProductDetailsComponent.
 
 ```ts
 import { ActivatedRoute } from '@angular/router';
@@ -203,3 +203,186 @@ permet de chercher l'id du produit par le route
 ```
 grâce au route , lorsque je clique le produit (téléphone), cela affiche ses caractéristiques par l'id grâce au route:
 son nom, son prix, sa description
+
+----------------------------------------------------------------------------------------------
+## Partie 3 Managing data
+'ng generate service cart' permet de créer deux fichiers cart.service.spec.ts et cart.service.ts.
+
+```ts
+export class CartService {
+  items: Product[] = [];
+/* . . . */
+
+  addToCart(product: Product) {
+    this.items.push(product);
+  }
+
+  getItems() {
+    return this.items;
+  }
+
+  clearCart() {
+    this.items = [];
+    return this.items;
+  }
+  ```
+  est un service qui permet de manipuler des objets produits soit en l'ajoutant (méthode addToCart),
+  soit en l'accèdant (méthode getItems) et en le vidant (méthode clearCart).
+
+  Dans le composant product-details (fichier product-details.component.ts)
+  ```ts
+  import { CartService } from '../cart.service';
+  ```
+  on importe le service cart.
+
+  ```ts
+  export class ProductDetailsComponent implements OnInit {
+
+  constructor(
+    private route: ActivatedRoute,
+    private cartService: CartService
+  ) { }
+}
+```
+Il y a une instanciation par la classe ProductDetailsComponent grâce à son constructeur qui se fait avec deux champs privés route:ActivatedRoute et cartService:CartService.
+```ts
+export class ProductDetailsComponent implements OnInit {
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    window.alert('Your product has been added to the cart!');
+  }
+}
+```
+on ajoute la méthode addToCart qui permet d'ajouter une carte d'un produit (téléphone) avec le message d'alerte 'Your product has been added to the cart!'.
+
+```html
+<button type="button" (click)="addToCart(product)">Buy</button>
+</div>
+```
+permet d'ajouter un bouton Buy dans la page html du composant product details.
+Lorsque je clique sur ce bouton, l'évènement est associé  à la méthode addToCart(product) qui permet d'ajouter le produit à la carte.
+
+ng generate component cart permet de créer un composant cart avec 4 fichiers crées: cart.component.html (une structure de template), cart.component.css (mise en forme), cart.component.ts (logique métier) et  cart.component.spec.ts (tests unitaires).
+```ts
+@Component({
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.css']
+})
+```
+permet d'avoir comme sélecteur 'app-cart', une url de template './cart.component.html' (template structure) et une url de style './cart.component.css' (mise en forme).
+```ts
+@NgModule({
+  declarations: [
+    AppComponent,
+    TopBarComponent,
+    ProductListComponent,
+    ProductAlertsComponent,
+    ProductDetailsComponent,
+    CartComponent,
+  ]
+  ```
+  Le composant CartComponent a été ajouté.
+  { path: 'cart', component: CartComponent } a été ajouté dans app.module.ts
+
+  ```ts (top-bar.component.html)
+  <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i>Checkout</a>
+  ```
+  routerlink permet de lier le contenu du html du composant cart.
+  Lorsque je clique sur le bouton checkout, cela affiche le contenu du html du composant cart.
+
+dans cart.component.ts
+  ```ts
+  import { CartService } from '../cart.service';
+  ```
+  permet d'importer le contenu du composant CartService.
+
+dans le fichier cart.component.ts
+  ```ts
+  export class CartComponent {
+
+items = this.cartService.getItems();
+  constructor(
+    private cartService: CartService
+  ) { }
+}
+```
+permet d'instancier le cartService et items accède au cartService.
+dans card.component.html
+```html
+<h3>Cart</h3>
+
+<div class="cart-item" *ngFor="let item of items">
+  <span>{{ item.name }}</span>
+  <span>{{ item.price | currency }}</span>
+</div>
+```
+Cela affiche les produits et leur prix achetés dans le html du composant card.
+
+Le fichier shipping.json contient les données des téléphones en json (type, price).
+
+HttpClientModule utilise le HTTPClient (flux entre le client et le serveur) en l'important .
+dans cart.service.ts
+```ts
+import { HttpClientModule } from '@angular/common/http';
+```
+dans cart.service.ts
+```ts
+export class CartService {
+/* . . . */
+  getShippingPrices() {
+    return this.http.get<{type: string, price: number}[]>('/assets/shipping.json');
+  }
+}
+```
+Ici on accède avec la méthode getShippingPrices avec le get le type et le prix dans le fichier json shipping.json.
+La commande 'ng  generate component shipping' génère 4 fichiers du composant shipping.component.html(structure du template),shipping.component.spec.ts(tests unitaires),shipping.component.ts(logique métier) et shipping.component.css(mise en forme).
+
+dans app.module.ts
+```ts
+declarations: [
+    AppComponent,
+    TopBarComponent,
+    ProductListComponent,
+    ProductAlertsComponent,
+    ProductDetailsComponent,
+    CartComponent,
+    ShippingComponent
+  ],
+ ```
+ Le composant ShippingComponent s'est ajouté dans app.module.ts.
+
+dans shipping.component.ts
+ ```ts
+ import { CartService } from '../cart.service';
+ ```
+ cela importe cart-service dans ship.component.ts.
+
+dans app.module.ts
+ ```ts
+ @NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      { path: '', component: ProductListComponent },
+      { path: 'products/:productId', component: ProductDetailsComponent },
+      { path: 'cart', component: CartComponent },
+      { path: 'shipping', component: ShippingComponent },
+    ])
+    ```
+    cela importe le chemin de shipping { path: 'shipping', component: ShippingComponent },
+
+ 'shippingCosts = this.cartService.getShippingPrices();' permet de récupérer les prix de cartService (prix des téléphones achetés)
+
+```
+ <h3>Shipping Prices</h3>
+
+<div class="shipping-item" *ngFor="let shipping of shippingCosts | async">
+  <span>{{ shipping.type }}</span>
+  <span>{{ shipping.price | currency }}</span>
+</div>
+```
+Lorsque je clique sur shipping prices, cela affiche un ensemble de nom concernant le nombre de jours  et de prix .
