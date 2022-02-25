@@ -34,8 +34,7 @@ je pointe avec la souris sur le nom d'un produit comme "Phone XL details" .
 ```
 *ngIf"=product.description" permet s'il y a une description des téléphones d'afficher la description de chaque téléphone.
 
-La commande 'ng generate component product-alerts' permet de créer un composant product-alerts avec 4 fichiers
-product-alerts.component.html (template de la structure), product-alerts.component.css (mise en forme), product-alerts.component.spec.ts (tests unitaires), product-alerts.component.ts (logique métier).
+La commande 'ng generate component product-alerts' permet de créer un composant product-alerts avec 4 fichiers: product-alerts.component.html (template de la structure), product-alerts.component.css (mise en forme), product-alerts.component.spec.ts (tests unitaires), product-alerts.component.ts (logique métier).
 
  Dans le fichier product.alerts.component.ts
 
@@ -47,7 +46,7 @@ product-alerts.component.html (template de la structure), product-alerts.compone
 }) 
 ```
 
-L'annotation @Component permet de créer un composant  avec comme selecteur permettant d'identifier le composant 'app-product-alerts'.
+L'annotation @Component permet de créer un composant  avec comme sélecteur permettant d'identifier le composant 'app-product-alerts'.
 Le templateUrl est l'url (gestion de la structure du template)  avec comme url './product-alerts.component.html'.
  Le styleUrls (gestion de la mise en forme) a comme url './product-alerts.component.css'.
 
