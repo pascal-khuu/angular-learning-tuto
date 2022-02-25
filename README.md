@@ -386,3 +386,71 @@ dans app.module.ts
 </div>
 ```
 Lorsque je clique sur shipping prices, cela affiche un ensemble de nom concernant le nombre de jours  et de prix .
+
+------------------------------------------------------------------------------------------------
+## Partie 4 Using forms for user input
+
+Formbuilder permet de réaliser un formulaire de contrôle.
+
+```ts
+export class CartComponent {
+
+  constructor(
+    private cartService: CartService,
+    private formBuilder: FormBuilder,
+  ) {}
+}
+```
+On instancie un cartcomponent avec deux champs privés cartService et formBuilder.
+
+```ts
+checkoutForm = this.formBuilder.group({
+    name: '',
+    address: ''
+  });
+  ```
+  Un groupe de formulaire avec le nom et l'adresse est associé au formulaire.
+  import { FormBuilder } from '@angular/forms'; permet d'importer formbuilder dans le composant card component.
+
+```ts
+onSubmit(): void {
+    // Process checkout data here
+    this.items = this.cartService.clearCart();
+    console.warn('Your order has been submitted', this.checkoutForm.value);
+    this.checkoutForm.reset();
+  }
+```
+Lorsque l'évènement OnSubmit() a commencé, un message est affiché 'Your order has been submitted' avec le nom et l'adresse affichés du formulaire.
+La page cart est réinitialisée(this.checkoutForm.reset()), tous les téléphones achetés sont vidés
+
+
+```html
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+</form>
+```
+ngsubmit() permet d'associer à l'évènement onSubmit() en Angular au formulaire de groupe "checkoutForm" qui correspond à l'évènement onSubmit() qui permet de vider les téléphones payés et d'afficher dans la console 'Your order has been submitted' avec le nom et l'adresse affichés du formulaire.
+
+```html
+ <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label for="name">
+      Name
+    </label>
+    <input id="name" type="text" formControlName="name">
+  </div>
+
+  <div>
+    <label for="address">
+      Address
+    </label>
+    <input id="address" type="text" formControlName="address">
+  </div>
+
+  <button class="button" type="submit">Purchase</button>
+
+</form>
+```
+est un formulaire avec les champs name et adresse avec le bouton purchase de type submit associé à l'évènenement onSubmit() qui vide les téléphones achetés et affiche sur la console le message 'Your order has been submitted' avec le nom et l'adresse affichés du formulaire.
+
+
