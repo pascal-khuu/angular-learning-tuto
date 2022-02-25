@@ -158,7 +158,7 @@ app-product-alerts permet d'afficher dans le template html le contenu du message
 --------------------------------------------------------------------------------------------
 ## Partie 2 Adding Navigation
 
-La commande 'ng generate component product-details' permet de créer un composant product-details avec les 4 fichiers product-details.component.html(structure du template), product-details.component.css(mise en forme), product-details.component.spec.ts(tests unitaires) et product-details.component.ts(logique métier).
+La commande 'ng generate component product-details' permet de créer un composant product-details avec les 4 fichiers: product-details.component.html(structure du template), product-details.component.css(mise en forme), product-details.component.spec.ts(tests unitaires) et product-details.component.ts(logique métier).
 
 ```ts
 RouterModule.forRoot([
@@ -170,7 +170,7 @@ RouterModule spécifie les différents paths pour les composants ProductListComp
 ```ts
 import { ActivatedRoute } from '@angular/router';
 ```
-permet d'importer Angular router qui permet d'utiliser un service et fournit l'accès aux informations sur un itinéraire qui est associé à un composant.
+ActivatedRoute permet d'importer en Angular un router qui permet d'utiliser un service et fournit l'accès aux informations sur un itinéraire qui est associé à un composant.
 
 (fichier product-details.component.ts)
 ```ts
@@ -244,7 +244,7 @@ export class CartService {
   ) { }
 }
 ```
-Il y a une instanciation par la classe ProductDetailsComponent grâce à son constructeur qui se fait avec deux champs privés route:ActivatedRoute et cartService:CartService.
+Il y a une instanciation par la classe ProductDetailsComponent grâce à son constructeur qui se fait avec deux champs privés route:ActivatedRoute et cartService.
 ```ts
 export class ProductDetailsComponent implements OnInit {
 
@@ -283,7 +283,7 @@ permet d'avoir comme sélecteur 'app-cart', une url de template './cart.componen
     CartComponent,
   ]
   ```
-  Le composant CartComponent a été ajouté.
+  Le composant CartComponent a été ajouté. </br>
   { path: 'cart', component: CartComponent } a été ajouté dans app.module.ts
 
   ```ts (top-bar.component.html)
@@ -296,7 +296,7 @@ dans cart.component.ts
   ```ts
   import { CartService } from '../cart.service';
   ```
-  permet d'importer le contenu du composant CartService.
+  permet d'importer le contenu du composant CartService.</br>
 
 dans le fichier cart.component.ts
   ```ts
@@ -336,7 +336,7 @@ export class CartService {
 }
 ```
 Ici on accède avec la méthode getShippingPrices avec le get le type et le prix dans le fichier json shipping.json.
-La commande 'ng  generate component shipping' génère 4 fichiers du composant shipping.component.html(structure du template),shipping.component.spec.ts(tests unitaires),shipping.component.ts(logique métier) et shipping.component.css(mise en forme).
+La commande 'ng  generate component shipping' génère 4 fichiers du composant: shipping.component.html(structure du template),shipping.component.spec.ts(tests unitaires),shipping.component.ts(logique métier) et shipping.component.css(mise en forme).
 
 dans app.module.ts
 ```ts
@@ -384,7 +384,7 @@ dans app.module.ts
   <span>{{ shipping.price | currency }}</span>
 </div>
 ```
-Lorsque je clique sur shipping prices, cela affiche un ensemble de nom concernant le nombre de jours  et de prix .
+Lorsque je clique sur shipping prices, cela affiche un ensemble de nombre de jours  et de prix .
 
 ------------------------------------------------------------------------------------------------
 ## Partie 4 Using forms for user input
