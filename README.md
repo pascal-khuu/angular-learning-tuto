@@ -2,7 +2,7 @@
 
 <!-- [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-8rdrkj) -->
 
-## Partie 1 (auteur:Pascal KHUU)
+## Partie 1 Getting started (auteur:Pascal KHUU)
 
 app-product-list est le contenu où s'affichent les téléphones ainsi que leur description avec les boutons Share et Notify.
 Dans app, se trouve tous les composants du projet.
@@ -66,7 +66,10 @@ Le templateUrl est l'url (gestion de la structure du template)  avec comme url '
   ``` 
   implémente la classe OnInit qui permet d'initialiser toutes les propriétés liées aux données d'une directive
 
- <!-- <button type="button" (click)="share()">Share</button> --> permet de créer un bouton de clic associé à l'évènement share().
+  ```html
+  <button type="button" (click)="share()">Share</button> 
+  ```
+   permet de créer un bouton de clic associé à l'évènement share().
 
  Le composant ProductAlertComponent a comme parent le composant ProductListComponent.
 ```html
@@ -88,7 +91,7 @@ Si le produit existe et le prix du produit est supérieur à 700, un bouton Noti
   Dans l'annotation @NgModule, les différents composants sont déclarés.
 
 
- dans le fichier product-alert.component.ts
+ Dans le fichier product-alert.component.ts
  
  ```ts
  import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -99,7 +102,7 @@ import { Product } from '../products';
 } 
 ```
 Dans le fichier product-alerts.component.ts,import { Component, Input, Output, EventEmitter } from '@angular/core' permet d'importer un composant, mettre en entrée des données, d'exporter et d'émettre un évènement.
-Dans ce fichier, La classe productAlertsComponent est exportée, notify permet d'emettre un évènement lorsque notify change et @Input()product: Product | undefined permet d'importer des données de la classe Produit et ce qui n'est pas défini.
+Dans ce fichier, La classe productAlertsComponent est exportée, notify permet d'émettre un évènement lorsque notify change et @Input()product: Product | undefined permet d'importer des données de la classe Produit et ce qui n'est pas défini.
 
 Dans le fichier product-alerts.component.ts
 
@@ -113,11 +116,7 @@ export class ProductAlertsComponent {
 
 la classe ProductAlertsComponent importe des données du produit et exporte notify qui émet un évènement
 
-```html
-<p *ngIf="product && product.price > 700">
-  <button type="button" (click)="notify.emit()">Notify Me</button>
-</p>
-```
+
 
  Dans le fichier product-list-component.ts
 
@@ -144,6 +143,7 @@ Dans le composant product-alerts-component qui est l'enfant du composant product
 <p *ngIf="product && product.price > 700">
   <button type="button" (click)="notify.emit()">Notify Me</button>
 </p>
+```
 lorsque je clique sur le bouton Notify me , un évènement est lancé (notify.emit()).
 
 ```html
@@ -181,7 +181,7 @@ Lorsqu'on instancie le composant product-details, on le construit avec Activated
 ```ts
 product: Product | undefined;
 ```
-permet de déclarer le produit.
+permet de déclarer le produit qui peut aussi être indéfini.
 ```ts
 const routeParams = this.route.snapshot.paramMap;
   const productIdFromRoute = Number(routeParams.get('productId'));
@@ -202,7 +202,7 @@ permet de chercher l'id du produit par le route
 </div>
 ```
 grâce au route , lorsque je clique le produit (téléphone), cela affiche ses caractéristiques par l'id grâce au route:
-son nom, son prix, sa description
+son nom, son prix, sa description.
 
 ----------------------------------------------------------------------------------------------
 ## Partie 3 Managing data
@@ -322,8 +322,7 @@ Cela affiche les produits et leur prix achetés dans le html du composant card.
 
 Le fichier shipping.json contient les données des téléphones en json (type, price).
 
-HttpClientModule utilise le HTTPClient (flux entre le client et le serveur) en l'important .
-dans cart.service.ts
+HttpClientModule utilise le HTTPClient (flux entre le client et le serveur) en l'important dans cart.service.ts
 ```ts
 import { HttpClientModule } from '@angular/common/http';
 ```
@@ -372,12 +371,12 @@ dans app.module.ts
       { path: 'cart', component: CartComponent },
       { path: 'shipping', component: ShippingComponent },
     ])
-    ```
-    cela importe le chemin de shipping { path: 'shipping', component: ShippingComponent },
+  ```
+  cela importe le chemin de shipping { path: 'shipping', component: ShippingComponent },
 
  'shippingCosts = this.cartService.getShippingPrices();' permet de récupérer les prix de cartService (prix des téléphones achetés)
 
-```
+```html
  <h3>Shipping Prices</h3>
 
 <div class="shipping-item" *ngFor="let shipping of shippingCosts | async">
@@ -420,7 +419,7 @@ onSubmit(): void {
     this.checkoutForm.reset();
   }
 ```
-Lorsque l'évènement OnSubmit() a commencé, un message est affiché 'Your order has been submitted' avec le nom et l'adresse affichés du formulaire.
+Lorsque l'évènement OnSubmit() a été lancé, un message est affiché 'Your order has been submitted' avec le nom et l'adresse saisis  du formulaire dans la console.
 La page cart est réinitialisée(this.checkoutForm.reset()), tous les téléphones achetés sont vidés
 
 
@@ -428,7 +427,7 @@ La page cart est réinitialisée(this.checkoutForm.reset()), tous les téléphon
   <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
 </form>
 ```
-ngsubmit() permet d'associer à l'évènement onSubmit() en Angular au formulaire de groupe "checkoutForm" qui correspond à l'évènement onSubmit() qui permet de vider les téléphones payés et d'afficher dans la console 'Your order has been submitted' avec le nom et l'adresse affichés du formulaire.
+ngsubmit() permet d'associer à l'évènement onSubmit() en Angular au formulaire de groupe "checkoutForm" qui correspond à l'évènement onSubmit() qui permet de vider les téléphones payés et d'afficher dans la console 'Your order has been submitted' avec le nom et l'adresse saisis  du formulaire.
 
 ```html
  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
@@ -451,6 +450,6 @@ ngsubmit() permet d'associer à l'évènement onSubmit() en Angular au formulair
 
 </form>
 ```
-est un formulaire avec les champs name et adresse avec le bouton purchase de type submit associé à l'évènenement onSubmit() qui vide les téléphones achetés et affiche sur la console le message 'Your order has been submitted' avec le nom et l'adresse affichés du formulaire.
+est un formulaire avec les champs name et adresse avec le bouton purchase de type submit associé à l'évènement onSubmit() qui vide les téléphones achetés et affiche sur la console le message 'Your order has been submitted' avec le nom et l'adresse saisis du formulaire.
 
 
