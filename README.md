@@ -4,8 +4,11 @@
 
 ## Partie 1 Getting started (auteur:Pascal KHUU)
 app-top-bar est le composant de l'application avec le titre My Store et le bouton Checkout.
+
 app-product-list est le composant où se trouve le contenu qui affiche les téléphones ainsi que leur description avec les boutons Share et Notify Me.
+
 Dans src>app se trouve tous les composants du projet.
+
 Dans le fichier app.module.ts se trouve les dépendances du projet (modules du projet).
 product-alerts et product-list sont par exemple des composants de l'application.
 
@@ -319,13 +322,14 @@ dans card.component.html
 ```
 Cela affiche les produits et leur prix achetés dans le html du composant card.
 
-Le fichier shipping.json contient les données des téléphones en json (type, price).
+Le fichier shipping.json contient les données des téléphones en json (type, price.
 
-HttpClientModule utilise le HTTPClient (flux entre le client et le serveur) en l'important dans cart.service.ts
 ```ts
 import { HttpClientModule } from '@angular/common/http';
 ```
-dans cart.service.ts
+HttpClientModule utilise le HTTPClient (flux entre le client et le serveur) en l'important dans cart.service.ts.
+
+Dans cart.service.ts
 ```ts
 export class CartService {
 /* . . . */
